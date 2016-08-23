@@ -245,8 +245,8 @@ movie_ids_with_avg_ratings_df.show(3, truncate=False)
 
 # Note: movie_names_df is a temporary variable, used only to separate the steps necessary
 # to create the movie_names_with_avg_ratings_df DataFrame.
-movie_names_df = movie_ids_with_avg_ratings_df.<FILL_IN>
-movie_names_with_avg_ratings_df = movie_names_df.<FILL_IN>
+movie_names_df = movie_ids_with_avg_ratings_df.join(movies_df, movie_ids_with_avg_ratings_df.movieId == movies_df.ID).drop(movies_df.ID)
+movie_names_with_avg_ratings_df = movie_names_df.sort("average", ascending=False)
 
 print 'movie_names_with_avg_ratings_df:'
 movie_names_with_avg_ratings_df.show(3, truncate=False)
@@ -296,7 +296,7 @@ Test.assertEquals(result,
 # COMMAND ----------
 
 # TODO: Replace <FILL IN> with appropriate code
-movies_with_500_ratings_or_more = movie_names_with_avg_ratings_df.<FILL_IN>
+movies_with_500_ratings_or_more = movie_names_with_avg_ratings_df.where("count >= 500")
 print 'Movies with highest ratings:'
 movies_with_500_ratings_or_more.show(20, truncate=False)
 
